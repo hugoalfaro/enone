@@ -52,7 +52,7 @@ FORMATO:
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.1-8b-instruct:free",
+        model: "mistralai/mistral-small-latest",
         messages: [
           { role: "user", content: prompt }
         ]
