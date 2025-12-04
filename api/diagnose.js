@@ -33,7 +33,7 @@ Responde SIEMPRE en español.
 Tu respuesta debe ser SOLO un JSON válido y sin ningún texto fuera del JSON.
 
 DATOS:
-${JSON.stringify(clinicalData)}
+${JSON.stringify(form)}
 
 FORMATO:
 {
