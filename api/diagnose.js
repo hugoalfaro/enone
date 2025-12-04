@@ -94,7 +94,7 @@ NO INCLUYAS ningún texto fuera del JSON.
     } catch (e) {
       // Si falla el parse, lo dejamos en null y devolvemos el texto bruto para debug
     }
-
+console.log("RAW FROM LLAMA:", raw);
     return res.status(200).json({
       ok: true,
       parsed,
