@@ -39,7 +39,8 @@ FORMATO:
   "diagnosis": "",
   "differential": [],
   "explanation": "",
-  "recommendations": [],
+  "recommendations": ["Debe contener al menos dos recomendaciones clínicas específicas basadas en los síntomas.",
+    "Otra recomendación clínica obligatoria."],
   "alerts": []
 }
 `;
