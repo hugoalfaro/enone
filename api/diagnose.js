@@ -60,6 +60,7 @@ FORMATO:
     });
 
     const data = await apiResponse.json();
+    console.log("OPENROUTER RAW RESPONSE:", data); // 👈 AÑADE ESTA LÍNEA
     const raw = data?.choices?.[0]?.message?.content || "{}";
 
     // Intentamos parsear el JSON de Llama
