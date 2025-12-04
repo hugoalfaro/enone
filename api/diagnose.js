@@ -26,49 +26,20 @@ export default async function handler(req, res) {
   try {
     const { clinicalData } = req.body || {};
 
-    const prompt = `
-Eres un psicólogo clínico experto en DSM-5 y CIE-10.
-Recibirás la información de una consulta psicológica y deberás analizarla y responder SOLO en JSON válido.
+const prompt = `
+Eres un psicólogo clínico. Responde SOLO en JSON válido y sin texto adicional.
 
-DATOS CLÍNICOS:
-${JSON.stringify(clinicalData, null, 2)}
+DATOS:
+${JSON.stringify(form)}
 
-FORMATO DE RESPUESTA (JSON ESTRICTO):
-
+FORMATO:
 {
-  "diagnosis": {
-    "name": "Nombre del trastorno principal",
-    "icd10": "Código CIE10 o DSM",
-    "confidence": 0
-  },
-  "differential_diagnoses": [
-    {
-      "name": "Diagnóstico diferencial 1",
-      "icd10": "Código",
-      "confidence": 0
-    }
-  ],
-  "explanation": "Explicación breve y clara en lenguaje profesional.",
-  "recommendations": [
-    "Recomendación 1",
-    "Recomendación 2"
-  ],
-  "factors": [
-    {
-      "feature": "Factor relevante (p.ej. duración de síntomas)",
-      "value": "Descripción breve"
-    }
-  ],
-  "alerts": [
-    {
-      "level": "critical | warning | info",
-      "title": "Título de la alerta clínica",
-      "message": "Descripción breve de la alerta."
-    }
-  ]
+  "diagnosis": "",
+  "differential": [],
+  "explanation": "",
+  "recommendations": [],
+  "alerts": []
 }
-
-NO INCLUYAS ningún texto fuera del JSON.
 `;
 
    console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
