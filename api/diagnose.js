@@ -1,4 +1,4 @@
-
+//test
 // api/diagnose.js
 // Función serverless para Vercel: recibe clinicalData, llama a OpenRouter y devuelve un JSON estructurado.
 
