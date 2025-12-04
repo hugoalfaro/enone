@@ -29,50 +29,25 @@ export default async function handler(req, res) {
     
 const prompt = `
 Eres un psicólogo clínico experto en DSM-5 y CIE-10.
-Responde SIEMPRE en español, SOLO con un JSON válido.
-Debes completar TODOS los campos del JSON. Ningún campo puede quedar vacío.
+Responde SIEMPRE en español.
+Tu respuesta debe ser SOLO un JSON válido y sin ningún texto fuera del JSON.
 
-DATOS CLÍNICOS:
+DATOS:
 ${JSON.stringify(clinicalData)}
 
-FORMATO DE RESPUESTA (JSON ESTRICTO):
-
+FORMATO:
 {
   "diagnosis": {
-    "name": "Nombre del trastorno principal",
-    "icd10": "Código CIE10 o DSM",
+    "name": "",
+    "icd10": "",
     "confidence": 0
   },
-  "differential_diagnoses": [
-    {
-      "name": "Diagnóstico diferencial 1",
-      "icd10": "Código",
-      "confidence": 0
-    }
-  ],
-  "explanation": "Explicación breve del fundamento clínico.",
-  "recommendations": [
-    "Debe contener al menos dos recomendaciones clínicas específicas basadas en los síntomas.",
-    "Otra recomendación clínica obligatoria."
-  ],
-  "factors": [
-    {
-      "feature": "Factor relevante identificado",
-      "value": "Descripción breve"
-    }
-  ],
-  "alerts": [
-    {
-      "level": "critical | warning | info",
-      "title": "Título de la alerta clínica",
-      "message": "Descripción de la alerta."
-    }
-  ]
+  "differential": [],
+  "explanation": "",
+  "recommendations": [],
+  "alerts": []
 }
-
-NO INCLUYAS ningún texto fuera del JSON.
 `;
-
 
     console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
 
