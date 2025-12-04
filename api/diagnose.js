@@ -1,7 +1,5 @@
-//test
 // api/diagnose.js
-// Función serverless para Vercel: recibe clinicalData, llama a OpenRouter y devuelve un JSON estructurado.
- 
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
@@ -24,9 +22,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { clinicalData } = req.body || {};
+    // 🟩 CAPTURO LOS DATOS DEL FRONTEND
+    const form = req.body?.clinicalData || req.body;
 
-const prompt = `
+    // 🟩 PROMPT COMPACTO (compatible con Llama Free)
+    const prompt = `
 Eres un psicólogo clínico. Responde SOLO en JSON válido y sin texto adicional.
 
 DATOS:
@@ -42,9 +42,9 @@ FORMATO:
 }
 `;
 
-   console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
+    console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
 
-   
+    // 🟩 LLAMADA A OPENROUTER
     const apiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -62,13 +62,16 @@ FORMATO:
     const data = await apiResponse.json();
     const raw = data?.choices?.[0]?.message?.content || "{}";
 
+    // Intentamos parsear el JSON de Llama
     let parsed = null;
     try {
       parsed = JSON.parse(raw);
     } catch (e) {
-      // Si falla el parse, lo dejamos en null y devolvemos el texto bruto para debug
+      console.warn("⚠️ Llama devolvió algo que no es JSON limpio");
     }
-console.log("RAW FROM LLAMA:", raw);
+
+    console.log("RAW FROM LLAMA:", raw);
+
     return res.status(200).json({
       ok: true,
       parsed,
@@ -82,3 +85,4 @@ console.log("RAW FROM LLAMA:", raw);
     });
   }
 }
+
