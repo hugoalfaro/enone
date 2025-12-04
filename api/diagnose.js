@@ -27,7 +27,9 @@ export default async function handler(req, res) {
 
     // 🟩 PROMPT COMPACTO (compatible con Llama Free)
     const prompt = `
-Eres un psicólogo clínico. Responde SOLO en JSON válido y sin texto adicional.
+Eres un psicólogo clínico experto en DSM-5 y CIE-10.
+Responde SIEMPRE en español.
+Tu respuesta debe ser SOLO un JSON válido y sin ningún texto fuera del JSON.
 
 DATOS:
 ${JSON.stringify(form)}
