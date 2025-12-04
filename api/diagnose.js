@@ -52,7 +52,7 @@ FORMATO:
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-small-latest",
+        model: "mistralai/mistral-tiny",
         messages: [
           { role: "user", content: prompt }
         ]
