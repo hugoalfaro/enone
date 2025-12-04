@@ -71,6 +71,9 @@ FORMATO DE RESPUESTA (JSON ESTRICTO):
 NO INCLUYAS ningún texto fuera del JSON.
 `;
 
+   console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
+
+   
     const apiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
