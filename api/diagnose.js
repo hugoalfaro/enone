@@ -26,23 +26,59 @@ export default async function handler(req, res) {
     const form = req.body?.clinicalData || req.body;
 
     // 🟩 PROMPT COMPACTO (compatible con Llama Free)
-    const prompt = `
+    
+const prompt = `
 Eres un psicólogo clínico experto en DSM-5 y CIE-10.
 Responde SIEMPRE en español.
-Tu respuesta debe ser SOLO un JSON válido y sin ningún texto fuera del JSON.
+Tu salida debe ser EXCLUSIVAMENTE un JSON válido, sin texto adicional.
+Debes completar TODOS los campos. Ningún campo puede quedar vacío.
+Las recomendaciones, factores y alertas deben incluir AL MENOS un elemento cada uno.
 
-DATOS:
-${JSON.stringify(form)}
+DATOS CLÍNICOS:
+${JSON.stringify(clinicalData)}
 
-FORMATO:
+FORMATO EXACTO QUE DEBES USAR:
+
 {
-  "diagnosis": "",
-  "differential": [],
-  "explanation": "",
-  "recommendations": ["Debe contener al menos dos recomendaciones clínicas específicas basadas en los síntomas.",
-    "Otra recomendación clínica obligatoria."],
-  "alerts": []
+  "diagnosis": {
+    "name": "Nombre del trastorno principal",
+    "icd10": "Código CIE10 o DSM",
+    "confidence": 0.0
+  },
+
+  "differential_diagnoses": [
+    {
+      "name": "Diagnóstico diferencial 1",
+      "icd10": "Código",
+      "confidence": 0.0
+    }
+  ],
+
+  "explanation": "Fundamento clínico obligatorio en español.",
+
+  "factors": [
+    {
+      "feature": "Factor clínico relevante (p. ej., duración, intensidad, estresores)",
+      "value": "Descripción breve del por qué es relevante"
+    }
+  ],
+
+  "recommendations": [
+    "Recomendación clínica 1 (obligatoria, específica y basada en síntomas)",
+    "Recomendación clínica 2 (obligatoria)"
+  ],
+
+  "alerts": [
+    {
+      "level": "critical | warning | info",
+      "title": "Título breve de la alerta clínica",
+      "message": "Descripción de la alerta que justifique atención o monitoreo"
+    }
+  ]
 }
+
+NO INCLUYAS ningún otro campo fuera del JSON.
+NO OMITAS NINGÚN CAMPO.
 `;
 
     console.log("PROMPT ENVIADO A IA ========\n", prompt, "\n====== FIN DEL PROMPT =======");
